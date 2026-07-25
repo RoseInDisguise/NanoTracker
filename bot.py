@@ -134,7 +134,6 @@ async def tokens(interaction: discord.Interaction):
 # --- 5. THE /models SLASH COMMAND ---
 @bot.tree.command(name="models_probe", description="Diagnostic tool to look at NanoGPT's raw model data.")
 async def models_probe(interaction: discord.Interaction):
-    # Standard endpoint for model lists
     url = "https://nano-gpt.com/api/models" 
     headers = {
         "Authorization": f"Bearer {NANOGPT_API_KEY}"
@@ -148,23 +147,16 @@ async def models_probe(interaction: discord.Interaction):
                 response.raise_for_status() 
                 data = await response.json()
         
-        # We only need to see the first 2 or 3 models to understand the structural pattern
+        # SAFE METHOD: We convert the entire dictionary to a string first.
         import json
-        if isinstance(data, list):
-            sample_data = data[:3]
-        elif isinstance(data, dict):
-            # Sometimes APIs nest the list inside a 'data' key
-            model_list = data.get('data', []) or data.get('models', [])
-            sample_data = model_list[:3]
-        else:
-            sample_data = data
-            
-        formatted_json = json.dumps(sample_data, indent=2)
+        formatted_json = json.dumps(data, indent=2)
         
+        # Then we chop the string at 1900 characters so Discord doesn't reject it.
         await interaction.followup.send(f"**Model Diagnostic Data:**\n```json\n{formatted_json[:1900]}\n```")
 
     except Exception as e:
         await interaction.followup.send(f"An unexpected internal error occurred: ```{e}```")
+        print(f"Probe Error: {e}")
 
 # --- 6. EXECUTION GUARD ---
 if __name__ == "__main__":
