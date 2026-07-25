@@ -56,7 +56,7 @@ async def on_ready():
         
     print("="*30, flush=True)
 
-# --- 4. THE NANO_GPT SLASH COMMAND ---
+# --- 4. THE /tokens SLASH COMMAND ---
 @bot.tree.command(name="tokens", description="Check remaining NanoGPT weekly token usage.")
 async def tokens(interaction: discord.Interaction):
     url = "https://nano-gpt.com/api/subscription/v1/usage"
@@ -130,7 +130,43 @@ async def tokens(interaction: discord.Interaction):
         await interaction.followup.send("An unexpected internal error occurred while parsing the data.")
         print(f"Internal Error Triggered: {e}")
 
-# --- 5. EXECUTION GUARD ---
+
+# --- 5. THE /models SLASH COMMAND ---
+@bot.tree.command(name="models_probe", description="Diagnostic tool to look at NanoGPT's raw model data.")
+async def models_probe(interaction: discord.Interaction):
+    # Standard endpoint for model lists
+    url = "https://nano-gpt.com/api/models" 
+    headers = {
+        "Authorization": f"Bearer {NANOGPT_API_KEY}"
+    }
+    
+    await interaction.response.defer(ephemeral=False)
+    
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, headers=headers) as response:
+                response.raise_for_status() 
+                data = await response.json()
+        
+        # We only need to see the first 2 or 3 models to understand the structural pattern
+        import json
+        if isinstance(data, list):
+            sample_data = data[:3]
+        elif isinstance(data, dict):
+            # Sometimes APIs nest the list inside a 'data' key
+            model_list = data.get('data', []) or data.get('models', [])
+            sample_data = model_list[:3]
+        else:
+            sample_data = data
+            
+        formatted_json = json.dumps(sample_data, indent=2)
+        
+        await interaction.followup.send(f"**Model Diagnostic Data:**\n```json\n{formatted_json[:1900]}\n```")
+
+    except Exception as e:
+        await interaction.followup.send(f"An unexpected internal error occurred: ```{e}```")
+
+# --- 6. EXECUTION GUARD ---
 if __name__ == "__main__":
     if DISCORD_TOKEN is None or NANOGPT_API_KEY is None:
         print("🚨 ERROR: Missing .env variables!", flush=True)
