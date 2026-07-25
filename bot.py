@@ -15,219 +15,472 @@ NANOGPT_API_KEY = os.getenv('NANOGPT_API_KEY')
 # --- 2. THE MASTER MODEL DATABASE (SINGLE SOURCE OF TRUTH) ---
 # Any score of 3 or lower has been converted to an AVOID string for dynamic sorting.
 MODELS_DB = [
+    [
+    # --- MODEL VERIFICATION CHECKLIST ---
+# Total Count: 37 Models
+#
+# MOONSHOT (KIMI) FAMILY (5)
+# 1. moonshotai/kimi-k2.6
+# 2. moonshotai/kimi-k2.6:thinking
+# 3. moonshotai/kimi-k2.5
+# 4. moonshotai/kimi-k2.5:thinking
+# 5. moonshotai/kimi-k2.7-code
+#
+# DEEPSEEK FAMILY (10)
+# 6. deepseek/deepseek-v4-pro
+# 7. deepseek/deepseek-v4-pro:thinking
+# 8. deepseek/deepseek-v4-flash
+# 9. deepseek/deepseek-v4-flash:thinking
+# 10. deepseek/deepseek-v3.2
+# 11. deepseek/deepseek-v3.2:thinking
+# 12. deepseek-ai/DeepSeek-R1-0528
+# 13. deepseek-ai/DeepSeek-V3.1
+# 14. deepseek-v3-0324
+# 15. deepseek-ai/DeepSeek-V3.1-Terminus
+#
+# MEITUAN (LONGCAT) FAMILY (2)
+# 16. longcat-2.0
+# 17. longcat-2.0:thinking
+#
+# Z.AI (GLM) FAMILY (8)
+# 18. zai-org/glm-4.7
+# 19. zai-org/glm-4.7:thinking
+# 20. zai-org/glm-5
+# 21. zai-org/glm-5:thinking
+# 22. zai-org/glm-5.1
+# 23. zai-org/glm-5.1:thinking
+# 24. zai-org/glm-5.2
+# 25. zai-org/glm-5.2:thinking
+#
+# NVIDIA (NEMOTRON) FAMILY (2)
+# 26. nvidia/nemotron-3-ultra-550b-a55b
+# 27. nvidia/nemotron-3-ultra-550b-a55b:thinking
+#
+# MINIMAX FAMILY (4)
+# 28. minimax/minimax-m3
+# 29. minimax/minimax-m3:thinking
+# 30. minimax/minimax-m2.7
+# 31. minimax/minimax-m2.5
+#
+# XIAOMI (MIMO) FAMILY (4)
+# 32. xiaomi/mimo-v2.5
+# 33. xiaomi/mimo-v2.5:thinking
+# 34. xiaomi/mimo-v2.5-pro
+# 35. xiaomi/mimo-v2.5-pro:thinking
+#
+# INCLUSIONAI (LING) FAMILY (2)
+# 36. inclusionai/ling-3.0-flash
+# 37. inclusionai/ling-3.0-flash:thinking
+# ------------------------------------
+
     {
-        "name": "zai-org/glm-4.7",
-        "🔥 Smut & NSFW": 6,
-        "🌧️ Angst & Drama": 5,
-        "🩸 Gore & Dark Themes": 5,
-        "✨ Creativity & Wildcard": 8,
-        "🧠 Intelligence & Logic": 6,
+        "name": "moonshotai/kimi-k2.6",
+        "🔥 Smut & NSFW": 10,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 10,
         "🎭 Prose & Storytelling": 8,
         "😂 Comedy & Humor": 5,
-        "review": "A highly creative and stylistic model with solid capabilities across the board."
+        "review": "PEAK SMUT. Generic writing style but insanely obedient; follows prompts to the letter so you can easily fix the style. Wonderfully creative when prompted right."
     },
     {
-        "name": "zai-org/glm-4.7:thinking",
-        "review": "Scores pending testing."
-    },
-    {
-        "name": "zai-org/glm-5",
-        "🔥 Smut & NSFW": "AVOID: High refusal rate expected (Score: 3/10).",
-        "🌧️ Angst & Drama": "AVOID: Lacks emotional depth (Score: 3/10).",
-        "🩸 Gore & Dark Themes": "AVOID: Censored against violence (Score: 2/10).",
-        "✨ Creativity & Wildcard": 6,
-        "🧠 Intelligence & Logic": 9,
-        "🎭 Prose & Storytelling": 6,
-        "😂 Comedy & Humor": "AVOID: Too corporate for humor (Score: 3/10).",
-        "review": "Excellent logic and intelligence, but heavily restricted on darker or NSFW themes."
+        "name": "moonshotai/kimi-k2.6:thinking",
+        "🔥 Smut & NSFW": 10,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 10,
+        "🎭 Prose & Storytelling": 8,
+        "😂 Comedy & Humor": 5,
+        "review": "Performs identically to base 2.6 for roleplay. Incredibly accurate to presets and highly recommended based on empirical testing."
     },
     {
         "name": "moonshotai/kimi-k2.5",
-        "🔥 Smut & NSFW": 5,
-        "🌧️ Angst & Drama": 4,
-        "🩸 Gore & Dark Themes": 4,
-        "✨ Creativity & Wildcard": 7,
+        "🔥 Smut & NSFW": 9,
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 9,
         "🧠 Intelligence & Logic": 8,
-        "🎭 Prose & Storytelling": 7,
-        "😂 Comedy & Humor": 5,
-        "review": "Good intelligence, decent prose."
+        "🎭 Prose & Storytelling": 9,
+        "😂 Comedy & Humor": 6,
+        "review": "An exceptional model for detailed, sensory-rich narrative and highly praised for both NSFW and emotional depth."
     },
     {
-        "name": "moonshotai/kimi-k2.6",
-        "🔥 Smut & NSFW": 4,
-        "🌧️ Angst & Drama": 5,
-        "🩸 Gore & Dark Themes": 5,
-        "✨ Creativity & Wildcard": 8,
-        "🧠 Intelligence & Logic": 9,
-        "🎭 Prose & Storytelling": 8,
-        "😂 Comedy & Humor": 4,
-        "review": "Highly intelligent and creative, noticeable prose upgrade from k2.5."
+        "name": "moonshotai/kimi-k2.5:thinking",
+        "🔥 Smut & NSFW": 9,
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 8,
+        "🎭 Prose & Storytelling": 9,
+        "😂 Comedy & Humor": 6,
+        "review": "Thinking mode adds slightly more internal reasoning but remains effectively a top-tier roleplay model just like the base."
     },
     {
         "name": "moonshotai/kimi-k2.7-code",
-        "🔥 Smut & NSFW": "AVOID: Designed for coding, terrible for NSFW (Score: 2/10).",
-        "🌧️ Angst & Drama": "AVOID: Designed for coding, poor emotional depth (Score: 2/10).",
-        "🩸 Gore & Dark Themes": "AVOID: Censored (Score: 2/10).",
-        "✨ Creativity & Wildcard": 4,
-        "🧠 Intelligence & Logic": 8,
-        "🎭 Prose & Storytelling": 4,
-        "😂 Comedy & Humor": "AVOID: Too analytical (Score: 2/10).",
-        "review": "Use strictly for coding tasks. x2 Token cost makes it unviable for RP."
+        "🔥 Smut & NSFW": "AVOID: Incapable of narrative (Score: 2/10).",
+        "🌧️ Angst & Drama": "AVOID: Strictly for programming (Score: 2/10).",
+        "🩸 Gore & Dark Themes": "AVOID: Strictly for programming (Score: 2/10).",
+        "✨ Creativity & Wildcard": "AVOID: Lacks creative spark entirely (Score: 2/10).",
+        "🧠 Intelligence & Logic": 10,
+        "🎭 Prose & Storytelling": "AVOID: Outputs cold, formatting-heavy code traces (Score: 1/10).",
+        "😂 Comedy & Humor": "AVOID: Does not do humor (Score: 1/10).",
+        "review": "A specialized coding model. Completely useless for roleplay or narrative purposes."
     },
     {
-        "name": "deepseek/deepseek-v4-pro-cheaper",
-        "🔥 Smut & NSFW": 6,
-        "🌧️ Angst & Drama": 5,
-        "🩸 Gore & Dark Themes": 5,
-        "✨ Creativity & Wildcard": 6,
-        "🧠 Intelligence & Logic": 6,
-        "🎭 Prose & Storytelling": 6,
+        "name": "deepseek/deepseek-v4-pro",
+        "🔥 Smut & NSFW": 9,
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 8,
+        "✨ Creativity & Wildcard": 10,
+        "🧠 Intelligence & Logic": 8,
+        "🎭 Prose & Storytelling": 9,
         "😂 Comedy & Humor": 5,
-        "review": "Balanced and affordable."
+        "review": "Incredible creativity that surpasses Kimi. Has a unique, high-quality writing style (though slightly harder to steer) and delivers perfectly detailed smut."
+    },
+    {
+        "name": "deepseek/deepseek-v4-pro:thinking",
+        "🔥 Smut & NSFW": 9,
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 8,
+        "✨ Creativity & Wildcard": 10,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 9,
+        "😂 Comedy & Humor": 5,
+        "review": "Retains the phenomenal creativity and detailed smut of the base model, with slightly enhanced world-building logic."
     },
     {
         "name": "deepseek/deepseek-v4-flash",
         "🔥 Smut & NSFW": 8,
-        "🌧️ Angst & Drama": 5,
-        "🩸 Gore & Dark Themes": 6,
-        "✨ Creativity & Wildcard": 8,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 7,
         "🧠 Intelligence & Logic": 7,
-        "🎭 Prose & Storytelling": 8,
+        "🎭 Prose & Storytelling": 7,
         "😂 Comedy & Humor": 5,
-        "review": "Fast and excellent at prose and NSFW content."
+        "review": "A decent cheaper alternative to Pro. Creativity is a bit stunted and the writing style is a step down, but still solid."
+    },
+    {
+        "name": "deepseek/deepseek-v4-flash:thinking",
+        "🔥 Smut & NSFW": 8,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 7,
+        "🧠 Intelligence & Logic": 7,
+        "🎭 Prose & Storytelling": 7,
+        "😂 Comedy & Humor": 5,
+        "review": "Similar to base Flash. Thinking mode might make the prose slightly drier, but it remains a capable lightweight option."
     },
     {
         "name": "deepseek/deepseek-v3.2",
-        "🔥 Smut & NSFW": 5,
-        "🌧️ Angst & Drama": 6,
-        "🩸 Gore & Dark Themes": 6,
+        "🔥 Smut & NSFW": 7,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
         "✨ Creativity & Wildcard": 7,
-        "🧠 Intelligence & Logic": 7,
-        "🎭 Prose & Storytelling": 7,
-        "😂 Comedy & Humor": 6,
-        "review": "Standard v3.2 model (No-CoT)."
+        "🧠 Intelligence & Logic": "AVOID: Tends to ignore prompts quite a bit (Score: 4/10).",
+        "🎭 Prose & Storytelling": "AVOID: Writing style is full of slop and drives users insane (Score: 3/10).",
+        "😂 Comedy & Humor": 5,
+        "review": "Decent creativity, but completely ruined by an unbearable, 'slop-heavy' writing style and poor prompt adherence."
     },
     {
         "name": "deepseek/deepseek-v3.2:thinking",
-        "🔥 Smut & NSFW": 5,
-        "🌧️ Angst & Drama": 6,
-        "🩸 Gore & Dark Themes": 6,
-        "✨ Creativity & Wildcard": 9,
-        "🧠 Intelligence & Logic": 7,
-        "🎭 Prose & Storytelling": 8,
-        "😂 Comedy & Humor": 6,
-        "review": "Chain-of-Thought (CoT) enabled. Noticeable boost to creativity and prose."
+        "🔥 Smut & NSFW": 7,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 8,
+        "🧠 Intelligence & Logic": "AVOID: Still struggles with obedience (Score: 4/10).",
+        "🎭 Prose & Storytelling": "AVOID: Suffers from the exact same slop-filled prose as the base model (Score: 3/10).",
+        "😂 Comedy & Humor": 5,
+        "review": "Thinking mode adds a tiny bit of character consistency, but does not fix the awful writing style."
     },
     {
         "name": "deepseek-ai/DeepSeek-R1-0528",
-        "🔥 Smut & NSFW": 7,
-        "🌧️ Angst & Drama": 7,
+        "🔥 Smut & NSFW": 9,
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 8,
+        "✨ Creativity & Wildcard": 10,
+        "🧠 Intelligence & Logic": "AVOID: Doesn't stick to prompting well, forgets rules easily (Score: 4/10).",
+        "🎭 Prose & Storytelling": 9,
+        "😂 Comedy & Humor": 6,
+        "review": "The undisputed king of creativity for fantasy mechanics. Peak writing style and unapologetically horny, though it suffers from older-model memory issues."
+    },
+    {
+        "name": "deepseek-ai/DeepSeek-V3.1",
+        "🔥 Smut & NSFW": 5,
+        "🌧️ Angst & Drama": 6,
         "🩸 Gore & Dark Themes": 6,
-        "✨ Creativity & Wildcard": 9,
+        "✨ Creativity & Wildcard": 6,
         "🧠 Intelligence & Logic": 9,
-        "🎭 Prose & Storytelling": 8,
-        "😂 Comedy & Humor": 5,
-        "review": "Extremely intelligent and creative with great emotional depth."
+        "🎭 Prose & Storytelling": 6,
+        "😂 Comedy & Humor": "AVOID: Barely attempts humor (Score: 4/10).",
+        "review": "Technically correct and highly analytical, but narratively flat and heavily censored compared to R1."
     },
     {
         "name": "deepseek-v3-0324",
-        "🔥 Smut & NSFW": 5,
-        "🌧️ Angst & Drama": 6,
-        "🩸 Gore & Dark Themes": 5,
+        "🔥 Smut & NSFW": 8,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
         "✨ Creativity & Wildcard": 7,
-        "🧠 Intelligence & Logic": 8,
+        "🧠 Intelligence & Logic": 7,
+        "🎭 Prose & Storytelling": 6,
+        "😂 Comedy & Humor": 5,
+        "review": "An older but reliable foundational model that popularized uncensored generation, though its prose is a bit basic now."
+    },
+    {
+        "name": "deepseek-ai/DeepSeek-V3.1-Terminus",
+        "🔥 Smut & NSFW": 7,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 7,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": "AVOID: Plagued by the same V3.x slop-heavy writing style your friend warned about (Score: 4/10).",
+        "😂 Comedy & Humor": 5,
+        "review": "Noted in early reports as a highly logical and temporally aware workhorse, but ultimately ruined for roleplay by the unbearable, formulaic writing style characteristic of the V3.x family."
+    },
+    {
+        "name": "longcat-2.0",
+        "🔥 Smut & NSFW": 8,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 8,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 8,
+        "😂 Comedy & Humor": 5,
+        "review": "Formerly known as OWL. A highly recommended, 'quite peak' model with massive context capabilities and surprisingly organic handling of themes."
+    },
+    {
+        "name": "longcat-2.0:thinking",
+        "🔥 Smut & NSFW": 8,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 8,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 8,
+        "😂 Comedy & Humor": 5,
+        "review": "Scores match the base model; the reasoning mode does not drastically alter the already excellent roleplay output."
+    },
+    {
+        "name": "zai-org/glm-4.7",
+        "🔥 Smut & NSFW": "AVOID: High refusal rate (Score: 4/10).",
+        "🌧️ Angst & Drama": "AVOID: Blocks self-harm and dark themes (Score: 3/10).",
+        "🩸 Gore & Dark Themes": "AVOID: Heavily censored against violence (Score: 4/10).",
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 7,
+        "😂 Comedy & Humor": "AVOID: Lacks humor (Score: 4/10).",
+        "review": "A highly creative and intelligent model, tragically ruined by harsh corporate censorship regarding romance and violence."
+    },
+    {
+        "name": "zai-org/glm-4.7:thinking",
+        "🔥 Smut & NSFW": "AVOID: High refusal rate (Score: 4/10).",
+        "🌧️ Angst & Drama": "AVOID: Blocks self-harm and dark themes (Score: 3/10).",
+        "🩸 Gore & Dark Themes": "AVOID: Heavily censored against violence (Score: 4/10).",
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 7,
+        "😂 Comedy & Humor": "AVOID: Lacks humor (Score: 4/10).",
+        "review": "Thinking mode fails to bypass the strict corporate alignment."
+    },
+    {
+        "name": "zai-org/glm-5",
+        "🔥 Smut & NSFW": "AVOID: High refusal rate (Score: 4/10).",
+        "🌧️ Angst & Drama": "AVOID: Avoids dark plots completely (Score: 3/10).",
+        "🩸 Gore & Dark Themes": "AVOID: Censored (Score: 4/10).",
+        "✨ Creativity & Wildcard": 7,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 6,
+        "😂 Comedy & Humor": "AVOID: Serious and corporate (Score: 4/10).",
+        "review": "A step backward from 4.7 in creativity, keeping all the suffocating safety filters."
+    },
+    {
+        "name": "zai-org/glm-5:thinking",
+        "🔥 Smut & NSFW": "AVOID: High refusal rate (Score: 4/10).",
+        "🌧️ Angst & Drama": "AVOID: Avoids dark plots completely (Score: 3/10).",
+        "🩸 Gore & Dark Themes": "AVOID: Censored (Score: 4/10).",
+        "✨ Creativity & Wildcard": 7,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 6,
+        "😂 Comedy & Humor": "AVOID: Serious and corporate (Score: 4/10).",
+        "review": "Reasoning mode does not alleviate the censorship issues."
+    },
+    {
+        "name": "zai-org/glm-5.1",
+        "🔥 Smut & NSFW": "AVOID: Still heavily blocked (Score: 4/10).",
+        "🌧️ Angst & Drama": "AVOID: Positivity bias destroys drama (Score: 4/10).",
+        "🩸 Gore & Dark Themes": 5,
+        "✨ Creativity & Wildcard": 8,
+        "🧠 Intelligence & Logic": 9,
         "🎭 Prose & Storytelling": 7,
         "😂 Comedy & Humor": 5,
-        "review": "Solid legacy model."
+        "review": "Better narrative coherence than 5.0, but still plagued by forced 'happy endings' and NSFW blocks."
+    },
+    {
+        "name": "zai-org/glm-5.1:thinking",
+        "🔥 Smut & NSFW": "AVOID: Still heavily blocked (Score: 4/10).",
+        "🌧️ Angst & Drama": "AVOID: Positivity bias destroys drama (Score: 4/10).",
+        "🩸 Gore & Dark Themes": 5,
+        "✨ Creativity & Wildcard": 8,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 7,
+        "😂 Comedy & Humor": 5,
+        "review": "Identical behavior to the base model in roleplay scenarios."
+    },
+    {
+        "name": "zai-org/glm-5.2",
+        "🔥 Smut & NSFW": 5,
+        "🌧️ Angst & Drama": 5,
+        "🩸 Gore & Dark Themes": 5,
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 10,
+        "🎭 Prose & Storytelling": 8,
+        "😂 Comedy & Humor": 6,
+        "review": "Acts like an incredibly intelligent RP partner with great prose, provided you can navigate its moderate content policies."
+    },
+    {
+        "name": "zai-org/glm-5.2:thinking",
+        "🔥 Smut & NSFW": 5,
+        "🌧️ Angst & Drama": 5,
+        "🩸 Gore & Dark Themes": 5,
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 10,
+        "🎭 Prose & Storytelling": 8,
+        "😂 Comedy & Humor": 6,
+        "review": "Reasoning mode is natively integrated; performance is identical to the base API."
     },
     {
         "name": "nvidia/nemotron-3-ultra-550b-a55b",
-        "🔥 Smut & NSFW": 7,
+        "🔥 Smut & NSFW": 6,
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 8,
+        "🎭 Prose & Storytelling": 7,
+        "😂 Comedy & Humor": 6,
+        "review": "Highly energetic and creative with excellent general knowledge, though occasionally clunky in fine literary style."
+    },
+    {
+        "name": "nvidia/nemotron-3-ultra-550b-a55b:thinking",
+        "🔥 Smut & NSFW": 6,
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 7,
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 8,
+        "🎭 Prose & Storytelling": 7,
+        "😂 Comedy & Humor": 6,
+        "review": "Scores remain identical to the base version; the reasoning mode drastically slows down responses without notable improvements to the narrative."
+    },
+    {
+        "name": "minimax/minimax-m3",
+        "🔥 Smut & NSFW": "AVOID: Heavily censored (Score: 3/10).",
+        "🌧️ Angst & Drama": 5,
+        "🩸 Gore & Dark Themes": 5,
+        "✨ Creativity & Wildcard": 6,
+        "🧠 Intelligence & Logic": 8,
+        "🎭 Prose & Storytelling": 7,
+        "😂 Comedy & Humor": "AVOID: Too neutral (Score: 4/10).",
+        "review": "Massive context size but far too censored for unrestricted roleplay."
+    },
+    {
+        "name": "minimax/minimax-m3:thinking",
+        "🔥 Smut & NSFW": "AVOID: Heavily censored (Score: 3/10).",
+        "🌧️ Angst & Drama": 5,
+        "🩸 Gore & Dark Themes": 5,
+        "✨ Creativity & Wildcard": 6,
+        "🧠 Intelligence & Logic": 8,
+        "🎭 Prose & Storytelling": 7,
+        "😂 Comedy & Humor": "AVOID: Too neutral (Score: 4/10).",
+        "review": "Reasoning mode does not save it from its deep censorship limits. Still heavily restricted for roleplay."
+    },
+    {
+        "name": "minimax/minimax-m2.7",
+        "🔥 Smut & NSFW": "AVOID: Inconsistent censorship (Score: 4/10).",
         "🌧️ Angst & Drama": 5,
         "🩸 Gore & Dark Themes": 5,
         "✨ Creativity & Wildcard": 8,
         "🧠 Intelligence & Logic": 8,
         "🎭 Prose & Storytelling": 8,
-        "😂 Comedy & Humor": 6,
-        "review": "A heavy-hitter with immense logic and excellent flow."
-    },
-    {
-        "name": "minimax/minimax-m3",
-        "🔥 Smut & NSFW": 4,
-        "🌧️ Angst & Drama": 5,
-        "🩸 Gore & Dark Themes": 5,
-        "✨ Creativity & Wildcard": 6,
-        "🧠 Intelligence & Logic": 6,
-        "🎭 Prose & Storytelling": 6,
-        "😂 Comedy & Humor": 4,
-        "review": "Average performance across the board."
-    },
-    {
-        "name": "minimax/minimax-m2.7",
-        "🔥 Smut & NSFW": "AVOID: High refusal rate expected (Score: 3/10).",
-        "🌧️ Angst & Drama": 5,
-        "🩸 Gore & Dark Themes": 5,
-        "✨ Creativity & Wildcard": 6,
-        "🧠 Intelligence & Logic": 7,
-        "🎭 Prose & Storytelling": 7,
-        "😂 Comedy & Humor": 4,
-        "review": "Good logic, but strictly censored."
+        "😂 Comedy & Humor": 5,
+        "review": "Rich and evocative prose ('Opus-like'), but struggles with strict NSFW content without heavy jailbreaking."
     },
     {
         "name": "minimax/minimax-m2.5",
-        "🔥 Smut & NSFW": "AVOID: Extremely censored (Score: 1/10).",
-        "🌧️ Angst & Drama": "AVOID: Poor performance (Score: 3/10).",
-        "🩸 Gore & Dark Themes": "AVOID: Censored (Score: 3/10).",
-        "✨ Creativity & Wildcard": 4,
-        "🧠 Intelligence & Logic": 5,
-        "🎭 Prose & Storytelling": "AVOID: Very weak prose (Score: 3/10).",
-        "😂 Comedy & Humor": "AVOID: Lacks nuance (Score: 2/10).",
-        "review": "Highly restricted and outdated. Avoid for RP scenarios."
+        "🔥 Smut & NSFW": "AVOID: Extreme censorship (Score: 2/10).",
+        "🌧️ Angst & Drama": "AVOID: Emotionally flat (Score: 3/10).",
+        "🩸 Gore & Dark Themes": "AVOID: Avoids intense violence (Score: 3/10).",
+        "✨ Creativity & Wildcard": "AVOID: Terrible for RP (Score: 3/10).",
+        "🧠 Intelligence & Logic": 7,
+        "🎭 Prose & Storytelling": "AVOID: Rigid formatting (Score: 4/10).",
+        "😂 Comedy & Humor": "AVOID: Non-existent (Score: 2/10).",
+        "review": "Purely a coding model. Strongly advised against for any narrative use."
     },
     {
         "name": "xiaomi/mimo-v2.5",
-        "🔥 Smut & NSFW": 8,
-        "🌧️ Angst & Drama": 6,
+        "🔥 Smut & NSFW": 7,
+        "🌧️ Angst & Drama": 8,
         "🩸 Gore & Dark Themes": 6,
         "✨ Creativity & Wildcard": 9,
-        "🧠 Intelligence & Logic": 8,
+        "🧠 Intelligence & Logic": 9,
         "🎭 Prose & Storytelling": 9,
-        "😂 Comedy & Humor": 6,
-        "review": "Incredible all-rounder. Uncensored and beautiful prose."
+        "😂 Comedy & Humor": 7,
+        "review": "Fantastic prose and emotional awareness. Slightly filtered on its native endpoint but handles NSFW well via open routers."
+    },
+    {
+        "name": "xiaomi/mimo-v2.5:thinking",
+        "🔥 Smut & NSFW": 7,
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 6,
+        "✨ Creativity & Wildcard": 9,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 9,
+        "😂 Comedy & Humor": 7,
+        "review": "Functions the same as base v2.5 in public APIs. Maintains great prose and emotional awareness, with the same slight filtration."
     },
     {
         "name": "xiaomi/mimo-v2.5-pro",
-        "🔥 Smut & NSFW": 8,
-        "🌧️ Angst & Drama": 6,
+        "🔥 Smut & NSFW": 5,
+        "🌧️ Angst & Drama": 7,
         "🩸 Gore & Dark Themes": 6,
-        "✨ Creativity & Wildcard": 9,
-        "🧠 Intelligence & Logic": 8,
-        "🎭 Prose & Storytelling": 9,
+        "✨ Creativity & Wildcard": 8,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 8,
         "😂 Comedy & Humor": 6,
-        "review": "Pro version of Mimo. Consistently top-tier."
+        "review": "Highly intelligent but suffers from slightly heavier censorship and a more serious tone than its base counterpart."
     },
     {
-        "name": "longcat-2.0",
-        "🔥 Smut & NSFW": "AVOID: Poor performance or highly restricted (Score: 3/10).",
-        "🌧️ Angst & Drama": 4,
-        "🩸 Gore & Dark Themes": "AVOID: Poor performance (Score: 3/10).",
-        "✨ Creativity & Wildcard": 5,
-        "🧠 Intelligence & Logic": 4,
-        "🎭 Prose & Storytelling": 5,
-        "😂 Comedy & Humor": "AVOID: Not recommended (Score: 3/10).",
-        "review": "Low scores across the board, mainly useful for its massive context window."
+        "name": "xiaomi/mimo-v2.5-pro:thinking",
+        "🔥 Smut & NSFW": 5,
+        "🌧️ Angst & Drama": 7,
+        "🩸 Gore & Dark Themes": 6,
+        "✨ Creativity & Wildcard": 8,
+        "🧠 Intelligence & Logic": 9,
+        "🎭 Prose & Storytelling": 8,
+        "😂 Comedy & Humor": 6,
+        "review": "Matches the Pro base version. Smarter logically but less spontaneous and slightly more censored than the standard v2.5."
     },
     {
         "name": "inclusionai/ling-3.0-flash",
         "🔥 Smut & NSFW": 9,
-        "🌧️ Angst & Drama": 7,
-        "🩸 Gore & Dark Themes": 7,
-        "✨ Creativity & Wildcard": 9,
-        "🧠 Intelligence & Logic": 9,
-        "🎭 Prose & Storytelling": 9,
-        "😂 Comedy & Humor": 5,
-        "review": "An absolute powerhouse. Uncensored, creative, and highly intelligent."
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 8,
+        "✨ Creativity & Wildcard": 8,
+        "🧠 Intelligence & Logic": 10,
+        "🎭 Prose & Storytelling": 8,
+        "😂 Comedy & Humor": 6,
+        "review": "An absolute powerhouse. Extremely uncensored, brilliant at maintaining plot momentum, and logically flawless."
+    },
+    {
+        "name": "inclusionai/ling-3.0-flash:thinking",
+        "🔥 Smut & NSFW": 9,
+        "🌧️ Angst & Drama": 8,
+        "🩸 Gore & Dark Themes": 8,
+        "✨ Creativity & Wildcard": 8,
+        "🧠 Intelligence & Logic": 10,
+        "🎭 Prose & Storytelling": 8,
+        "😂 Comedy & Humor": 6,
+        "review": "Already behaves as a reasoning MoE by default. Incredibly potent, uncensored, and highly logical, perfectly mirroring its base flash scores."
     }
+]
 ]
 
 # --- 3. THE RENDER "KEEP-AWAKE" WEB SERVER ---
@@ -272,7 +525,9 @@ class ModelSelect(discord.ui.Select):
 
 class ModelView(discord.ui.View):
     def __init__(self):
-        super().__init__(timeout=None) 
+        # Set the timeout to however many seconds you want (e.g., 120 seconds = 2 minutes)
+        super().__init__(timeout=120) 
+        self.message = None # We will store the message here later
         self.current_page = 0
         self.selected_category = None
         self.items_per_page = 10
@@ -286,6 +541,19 @@ class ModelView(discord.ui.View):
         self.next_btn = discord.ui.Button(label="Next ▶️", style=discord.ButtonStyle.primary, disabled=True)
         self.next_btn.callback = self.next_page
         self.add_item(self.next_btn)
+
+    async def on_timeout(self):
+        # 1. Disable all buttons and dropdowns
+        for item in self.children:
+            item.disabled = True
+            
+        # 2. Update the message to grey out the buttons, then send the timeout alert
+        if self.message:
+            try:
+                await self.message.edit(view=self)
+                await self.message.reply("⏳ This menu has timed out to save resources. Please run `/models` again to keep browsing.")
+            except discord.HTTPException:
+                pass
 
     async def prev_page(self, interaction: discord.Interaction):
         self.current_page -= 1
@@ -443,6 +711,7 @@ async def tokens(interaction: discord.Interaction):
         print(f"Internal Error Triggered: {e}")
 
 # --- 7. THE /models SLASH COMMAND ---
+# --- 7. THE /models SLASH COMMAND ---
 @bot.tree.command(name="models", description="Browse the curated list of roleplay models.")
 async def models_command(interaction: discord.Interaction):
     embed = discord.Embed(
@@ -450,7 +719,15 @@ async def models_command(interaction: discord.Interaction):
         description="Select a writing style from the dropdown menu below to see our group's highly recommended models.",
         color=discord.Color.blurple()
     )
-    await interaction.response.send_message(embed=embed, view=ModelView(), ephemeral=False)
+    
+    # 1. Create the view
+    view = ModelView()
+    
+    # 2. Send the message
+    await interaction.response.send_message(embed=embed, view=view, ephemeral=False)
+    
+    # 3. Fetch the message that was just sent and give it to the view so it knows what to edit on timeout
+    view.message = await interaction.original_response()
 
 # --- 8. EXECUTION GUARD ---
 if __name__ == "__main__":
