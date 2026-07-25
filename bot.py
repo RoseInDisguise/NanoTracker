@@ -12,56 +12,55 @@ load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 NANOGPT_API_KEY = os.getenv('NANOGPT_API_KEY')
 
-# --- 2. THE ROLEPLAY MODEL LIBRARY (THE NESTED DICTIONARY) ---
-# Format: "Model_Name - Score/10 - [Review Placeholder]"
-RP_MODELS = {
-    "🔥 Smut & NSFW": {
-        "recommended": [
-            "Gemma 4 31B DarkIdol - 9/10 - [Review Placeholder]",
-            "Qwen3.5 27B Derestricted - 8/10 - [Review Placeholder]",
-            "xiaomi/mimo-v2.5-pro - 8/10 - [Review Placeholder]"
-        ],
-        "avoid": [
-            "moonshotai/kimi-k2.6 - [Strictly censored corporate model, will refuse prompts]",
-            "zai-org/glm-5 - [High refusal rate on explicit content]",
-            "deepseek-ai/DeepSeek-V3.1 - [Corporate alignment restricts NSFW output]"
-        ]
+# --- 2. THE MASTER MODEL DATABASE (SINGLE SOURCE OF TRUTH) ---
+# Add a model here ONCE. 
+# Number = Score. String = Avoid Warning. 
+MODELS_DB = [
+    {
+        "name": "nvidia/nemotron-3-ultra-550b-a55b",
+        "🔥 Smut & NSFW": 8.5,
+        "🎭 Prose & Storytelling": 9.0,
+        "🌧️ Angst & Drama": 10.0,
+        "✨ Creativity & Wildcard": 8.5,
+        "review": "A heavy-hitter with immense emotional depth and excellent pacing."
     },
-    "🎭 Prose & Storytelling": {
-        "recommended": [
-            "deepseek/deepseek-v4-pro-cheaper:thinking - 9/10 - [Review Placeholder]",
-            "Gemma 4 31B Novelist - 9/10 - [Review Placeholder]",
-            "minimax/minimax-m3 - 8/10 - [Review Placeholder]",
-            "Qwen 3 235b A22B - 8/10 - [Review Placeholder]",
-            "zai-org/glm-4.7 - 7/10 - [Review Placeholder]"
-        ],
-        "avoid": [
-            "moonshotai/kimi-k2.7-code - [Designed for coding, x2 token cost, terrible at prose]"
-        ]
+    {
+        "name": "Gemma 4 31B DarkIdol",
+        "🔥 Smut & NSFW": 9.5,
+        "🎭 Prose & Storytelling": 7.5,
+        "review": "Fantastic for darker themes and completely uncensored."
     },
-    "🌧️ Angst & Drama": {
-        "recommended": [
-            "nvidia/nemotron-3-ultra-550b-a55b - 10/10 - [Review Placeholder]",
-            "Gemma 4 31B Melinoe - 9/10 - [Review Placeholder]",
-            "deepseek-ai/DeepSeek-V3.1-Terminus - 8/10 - [Review Placeholder]",
-            "xiaomi/mimo-v2.5:thinking - 7/10 - [Review Placeholder]"
-        ],
-        "avoid": [
-            "inclusionai/ling-3.0-flash - [Too concise for emotional depth]"
-        ]
+    {
+        "name": "moonshotai/kimi-k2.6",
+        "🔥 Smut & NSFW": "AVOID: Strictly censored corporate model. Will refuse prompts.",
+        "🎭 Prose & Storytelling": 8.0,
+        "🌧️ Angst & Drama": 8.0,
+        "review": "Great logic and prose, but corporate alignment ruins anything edgy."
     },
-    "✨ Creativity & Wildcard": {
-        "recommended": [
-            "longcat-2.0 - 9/10 - [Review Placeholder]",
-            "deepseek-ai/DeepSeek-R1-0528 - 8/10 - [Review Placeholder]",
-            "inclusionai/ling-3.0-flash:thinking - 8/10 - [Review Placeholder]",
-            "minimax/minimax-m2.7 - 7/10 - [Review Placeholder]"
-        ],
-        "avoid": [
-            "deepseek-v3-0324 - [Outdated iteration compared to newer v4 models]"
-        ]
+    {
+        "name": "deepseek/deepseek-v4-pro-cheaper:thinking",
+        "🎭 Prose & Storytelling": 9.5,
+        "✨ Creativity & Wildcard": 9.0,
+        "review": "Incredible reasoning and flow. Highly steerable."
+    },
+    {
+        "name": "deepseek-v3-0324",
+        "✨ Creativity & Wildcard": "AVOID: Outdated iteration. Use v4 instead.",
+        "review": "Obsolete compared to newer models on the network."
+    },
+    {
+        "name": "longcat-2.0:thinking",
+        "✨ Creativity & Wildcard": 9.5,
+        "🎭 Prose & Storytelling": 8.5,
+        "review": "Massive context window, perfect for long-running lore."
+    },
+    {
+        "name": "xiaomi/mimo-v2.5-pro",
+        "🔥 Smut & NSFW": 8.5,
+        "🌧️ Angst & Drama": 7.5,
+        "review": "Surprisingly capable and descriptive."
     }
-}
+]
 
 # --- 3. THE RENDER "KEEP-AWAKE" WEB SERVER ---
 class DummyHandler(BaseHTTPRequestHandler):
@@ -83,7 +82,7 @@ def run_dummy_server():
 
 threading.Thread(target=run_dummy_server, daemon=True).start()
 
-# --- 4. INTERACTIVE UI COMPONENTS FOR MODELS ---
+# --- 4. INTERACTIVE UI COMPONENTS (DYNAMIC FILTERING & PAGINATION) ---
 class ModelSelect(discord.ui.Select):
     def __init__(self):
         options = [
@@ -95,43 +94,95 @@ class ModelSelect(discord.ui.Select):
         super().__init__(placeholder="Select a roleplay style...", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: discord.Interaction):
-        # 1. Retrieve the nested dictionary for the chosen category
-        selected_category = self.values[0]
-        category_data = RP_MODELS[selected_category]
-        
-        # 2. Process the Recommended List
-        rec_lines = []
-        for item in category_data["recommended"]:
-            # We split by ' - ' only on the first instance to separate Name from Score/Review
-            parts = item.split(" - ", 1)
-            name = parts[0]
-            details = parts[1] if len(parts) > 1 else "No data."
-            rec_lines.append(f"• **{name}**\n  *{details}*")
-        rec_text = "\n\n".join(rec_lines)
-        
-        # 3. Process the Avoid List
-        avoid_lines = []
-        for item in category_data["avoid"]:
-            parts = item.split(" - ", 1)
-            name = parts[0]
-            details = parts[1] if len(parts) > 1 else "Not recommended."
-            avoid_lines.append(f"❌ **{name}**\n  *{details}*")
-        avoid_text = "\n\n".join(avoid_lines) if avoid_lines else "*No models are currently flagged for this category.*"
-        
-        # 4. Construct the UI Embed
-        embed = discord.Embed(
-            title=f"{selected_category} Recommendations",
-            description=f"**✅ Top Picks:**\n\n{rec_text}\n\n**⚠️ Stay Away From:**\n\n{avoid_text}",
-            color=discord.Color.purple()
-        )
-        embed.set_footer(text="Tip: Copy the exact bolded name into your chat client UI.")
-        
-        await interaction.response.edit_message(embed=embed)
+        self.view.selected_category = self.values[0]
+        self.view.current_page = 0
+        await self.view.update_view(interaction)
 
 class ModelView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None) 
+        self.current_page = 0
+        self.selected_category = None
+        self.items_per_page = 10
+        
         self.add_item(ModelSelect())
+        
+        self.prev_btn = discord.ui.Button(label="◀️ Prev", style=discord.ButtonStyle.secondary, disabled=True)
+        self.prev_btn.callback = self.prev_page
+        self.add_item(self.prev_btn)
+        
+        self.next_btn = discord.ui.Button(label="Next ▶️", style=discord.ButtonStyle.primary, disabled=True)
+        self.next_btn.callback = self.next_page
+        self.add_item(self.next_btn)
+
+    async def prev_page(self, interaction: discord.Interaction):
+        self.current_page -= 1
+        await self.update_view(interaction)
+
+    async def next_page(self, interaction: discord.Interaction):
+        self.current_page += 1
+        await self.update_view(interaction)
+
+    async def update_view(self, interaction: discord.Interaction):
+        # 1. Filter the Master Database dynamically
+        recommended = []
+        avoid = []
+        
+        for model in MODELS_DB:
+            # Check if the model has a property matching the selected category
+            cat_value = model.get(self.selected_category)
+            
+            if isinstance(cat_value, (int, float)):
+                # It's a score! Add to recommended.
+                recommended.append({
+                    "name": model["name"],
+                    "score": cat_value,
+                    "review": model.get("review", "No review provided.")
+                })
+            elif isinstance(cat_value, str):
+                # It's text! Add to avoid list.
+                avoid.append({
+                    "name": model["name"],
+                    "reason": cat_value
+                })
+        
+        # 2. Sort recommended by score (Highest to Lowest)
+        recommended.sort(key=lambda x: x["score"], reverse=True)
+        
+        # 3. Pagination Math
+        total_pages = 1 + ((len(recommended) - 1) // self.items_per_page + 1) if recommended else 1
+        
+        embed = discord.Embed(title=f"{self.selected_category}", color=discord.Color.purple())
+        
+        # --- PAGE 0: SUMMARY (TOP PICKS & AVOID) ---
+        if self.current_page == 0:
+            top_recs = recommended[:5]
+            top_avoids = avoid[:3]
+            
+            rec_text = "\n\n".join([f"• **{m['name']}** - {m['score']}/10\n  *{m['review']}*" for m in top_recs])
+            avoid_text = "\n\n".join([f"❌ **{m['name']}**\n  *{m['reason']}*" for m in top_avoids])
+            
+            if not rec_text: rec_text = "*No models tested for this category yet.*"
+            if not avoid_text: avoid_text = "*No models flagged to avoid.*"
+            
+            embed.description = f"**🌟 Highlights (Page 1/{total_pages})**\n\n**✅ Top Picks:**\n\n{rec_text}\n\n**⚠️ Stay Away From:**\n\n{avoid_text}"
+            
+        # --- PAGE 1+: FULL DIRECTORY (SORTED & PAGINATED) ---
+        else:
+            start_idx = (self.current_page - 1) * self.items_per_page
+            end_idx = start_idx + self.items_per_page
+            page_recs = recommended[start_idx:end_idx]
+            
+            rec_text = "\n\n".join([f"• **{m['name']}** - {m['score']}/10\n  *{m['review']}*" for m in page_recs])
+            embed.description = f"**📜 All Models (Page {self.current_page + 1}/{total_pages})**\n*Sorted from highest to lowest rating.*\n\n{rec_text}"
+
+        self.prev_btn.disabled = (self.current_page == 0)
+        self.next_btn.disabled = (self.current_page >= total_pages - 1)
+        
+        embed.set_footer(text="Tip: Copy the exact bolded name into your chat client UI.")
+        
+        await interaction.response.edit_message(embed=embed, view=self)
+
 
 # --- 5. INITIALIZE BOT ---
 intents = discord.Intents.default()
