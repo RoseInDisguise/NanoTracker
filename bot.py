@@ -15,8 +15,8 @@ NANOGPT_API_KEY = os.getenv('NANOGPT_API_KEY')
 # --- 2. THE MASTER MODEL DATABASE (SINGLE SOURCE OF TRUTH) ---
 # Any score of 3 or lower has been converted to an AVOID string for dynamic sorting.
 MODELS_DB = [
-    [
-    # --- MODEL VERIFICATION CHECKLIST ---
+
+ # --- MODEL VERIFICATION CHECKLIST ---
 # Total Count: 37 Models
 #
 # MOONSHOT (KIMI) FAMILY (5)
@@ -480,7 +480,6 @@ MODELS_DB = [
         "😂 Comedy & Humor": 6,
         "review": "Already behaves as a reasoning MoE by default. Incredibly potent, uncensored, and highly logical, perfectly mirroring its base flash scores."
     }
-]
 ]
 
 # --- 3. THE RENDER "KEEP-AWAKE" WEB SERVER ---
