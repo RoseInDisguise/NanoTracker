@@ -64,7 +64,6 @@ async def tokens(interaction: discord.Interaction):
         "Authorization": f"Bearer {NANOGPT_API_KEY}"
     }
     
-    # Acknowledge interaction quickly to prevent Discord's 3-second timeout
     await interaction.response.defer(ephemeral=False)
     
     try:
@@ -83,53 +82,20 @@ async def tokens(interaction: discord.Interaction):
             await interaction.followup.send("⚠️ The NanoGPT subscription does not appear to be active.")
             return
             
-        usage_data = data.get('weekly')
-        if not usage_data: 
-            usage_data = data.get('monthly', {})
+        # --- DIAGNOSTIC PROBE ---
+        # We bypass our assumptions and print the raw JSON data to inspect the structure.
+        import json
+        formatted_json = json.dumps(data, indent=2)
         
-        if not usage_data:
-            await interaction.followup.send("Couldn't find the usage data in the API response.")
-            return
-
-        used = usage_data.get('used', 0)
-        remaining = usage_data.get('remaining', 0)
-        limit = used + remaining
-        
-        # Dynamic color states based on remaining balance
-        percent_remaining = (remaining / limit) * 100 if limit > 0 else 0
-        if percent_remaining > 20:
-            embed_color = discord.Color.blue()
-        elif percent_remaining > 5:
-            embed_color = discord.Color.yellow()
-        else:
-            embed_color = discord.Color.red()
-
-        # Clean UI translation utilizing native Discord timestamps
-        reset_ms = usage_data.get('resetAt')
-        if reset_ms:
-            unix_seconds = int(reset_ms / 1000)
-            reset_time = f"<t:{unix_seconds}:F> \n*<t:{unix_seconds}:R>*"
-        else:
-            reset_time = "Unknown"
-
-        # Constructing the polished visual card
-        embed = discord.Embed(
-            title="📊 NanoGPT Subscription Status",
-            color=embed_color
-        )
-        embed.add_field(name="Tokens Used", value=f"{used:,} / {limit:,}", inline=True)
-        embed.add_field(name="Tokens Remaining", value=f"{remaining:,}", inline=True)
-        embed.add_field(name="\u200B", value="\u200B", inline=False) 
-        embed.add_field(name="Next Reset", value=reset_time, inline=False)
-        
-        # Push the finalized embed response
-        await interaction.followup.send(embed=embed)
+        # Discord has a 2000 character limit per message, so we slice it just in case.
+        await interaction.followup.send(f"**Diagnostic Data:**\n```json\n{formatted_json[:1900]}\n```")
+        return
+        # -------------------------
 
     except aiohttp.ClientError:
         await interaction.followup.send("Oops, couldn't connect to NanoGPT. The network might be down.")
     except Exception as e:
-        await interaction.followup.send("An unexpected internal error occurred while parsing the data.")
-        print(f"Internal Error Triggered: {e}")
+        await interaction.followup.send(f"An unexpected internal error occurred: ```{e}```")
 
 # --- 5. EXECUTION GUARD ---
 if __name__ == "__main__":
